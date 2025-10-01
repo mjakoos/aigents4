@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowRight, Users, Target, Zap, Award, CheckCircle, Star, Building, Globe, Lightbulb, Rocket, TrendingUp, Shield } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Menu, ArrowRight, Users, Target, Zap, Award, CheckCircle, Globe, Lightbulb, Rocket, TrendingUp, Shield } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function Agency() {
@@ -47,6 +48,26 @@ export default function Agency() {
               <Button className="hidden md:flex bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600">
                 Müşteri Paneli
               </Button>
+
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="md:hidden hover:bg-white/10 transition-all duration-300">
+                    <Menu className="h-6 w-6" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="bg-slate-900 border-white/10">
+                  <nav className="flex flex-col space-y-4 mt-8">
+                    <Link to="/agency" className="text-cyan-400 font-medium py-2 px-4 rounded-lg bg-cyan-500/10">Agency</Link>
+                    <Link to="/ai-chat-agent" className="text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2 px-4 rounded-lg hover:bg-white/5">AI Chat Agent</Link>
+                    <Link to="/" className="text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2 px-4 rounded-lg hover:bg-white/5">AI Call Agent</Link>
+                    <Link to="/ai-studio" className="text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2 px-4 rounded-lg hover:bg-white/5">AI Studio</Link>
+                    <Link to="/talepler" className="text-gray-300 hover:text-cyan-400 transition-colors duration-300 py-2 px-4 rounded-lg hover:bg-white/5">Talepler</Link>
+                    <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 mt-4">
+                      Müşteri Paneli
+                    </Button>
+                  </nav>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>

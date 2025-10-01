@@ -159,7 +159,7 @@ export default function Home() {
           <div className="container mx-auto">
             <p className="text-center text-cyan-400 mb-8 font-medium">Güçlü Entegrasyonlar, Sınırsız Olanaklar</p>
             <div className="flex flex-wrap justify-center items-center gap-8">
-              {['make', 'İkas', 'ManyChat', 'shopify'].map((brand, i) => (
+              {['make', 'İkas', 'ManyChat', 'shopify'].map((brand) => (
                 <div key={brand} className="bg-white/10 px-6 py-3 rounded-lg opacity-60 hover:opacity-100 hover:scale-105 transition-all duration-300 cursor-pointer">
                   <span className="text-white font-semibold">{brand}</span>
                 </div>
