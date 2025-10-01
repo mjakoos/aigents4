@@ -3,17 +3,53 @@ import { Card } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Menu, Phone, Play, ArrowRight, BarChart3, Users, Globe, MessageCircle, Zap, Clock, Shield, Headphones } from 'lucide-react'
+import { Menu, Phone, Play, ArrowRight, BarChart3, Users, Globe, MessageCircle, Zap, Clock, Shield, Headphones, Send, CheckCircle } from 'lucide-react'
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 export default function Home() {
   const [isLoaded, setIsLoaded] = useState(false)
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    service: 'ai-call-agent',
+    message: '',
+    budget: ''
+  })
+  const [isSubmitted, setIsSubmitted] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoaded(true), 50)
     return () => clearTimeout(timer)
   }, [])
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitted(true)
+
+    setTimeout(() => {
+      setIsSubmitted(false)
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        service: 'ai-call-agent',
+        message: '',
+        budget: ''
+      })
+    }, 3000)
+  }
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId)
@@ -306,138 +342,118 @@ export default function Home() {
           </div>
         </section>
 
-        {/* Pricing Section */}
+        {/* Contact Form Section */}
         <section className="py-20 px-4 bg-slate-900/30" id="pricing">
-          <div className="container mx-auto">
-            <div className="text-center mb-16">
+          <div className="container mx-auto max-w-3xl">
+            <div className="text-center mb-8">
               <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-                İşletmeniz İçin<br />Doğru Planı Seçin
+                Özel Talep Formu
               </h2>
-              <p className="text-xl text-gray-300 mb-8">
-                Plan seçimi ile 24 saat içinde kullanmaya başlayın.
-              </p>
-
-              <div className="flex items-center justify-center space-x-4 mb-12">
-                <span className="text-gray-300">Aylık</span>
-                <Button variant="outline" className="bg-slate-800 border-white/20 hover:border-cyan-500/50 transition-all duration-300">Yıllık</Button>
-                <span className="text-gray-300">Aylık</span>
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-              {/* Basic Plan */}
-              <Card className="glass-card p-8 relative hover:bg-white/10 hover:scale-105 transition-all duration-500">
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">TEMEL PLAN</h3>
-                  <p className="text-gray-400 mb-4">Aylık</p>
-                  <div className="mb-4">
-                    <span className="text-4xl font-bold text-white">$749</span>
-                    <span className="text-gray-400">⁰</span>
-                    <p className="text-sm text-gray-400">/dan başlayan fiyatlarla</p>
-                  </div>
-                  <p className="text-gray-300">Başlangıç için ideal, küçük ölçekli işletmeler.</p>
-                </div>
-
-                <div className="space-y-3 mb-8">
-                  {[
-                    "Dahil: 1 Sesli Agent",
-                    "En Uygun: Küçük işletmeler",
-                    "Temel çağrı karşılama",
-                    "Tek dil desteği (Türkçe)",
-                    "Basit raporlama ve çağrı kayıtları",
-                    "Yerel numara desteği",
-                    "7/24 çalışma modu"
-                  ].map((feature) => (
-                    <div key={feature} className="flex items-center space-x-2 hover:scale-105 transition-all duration-300">
-                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                      <span className="text-gray-300 text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Button className="w-full btn-secondary hover:scale-105 transition-all duration-300">
-                  Satış Ekibi ile İletişime Geç →
-                </Button>
-              </Card>
-
-              {/* Standard Plan */}
-              <Card className="glass-card p-8 relative border-cyan-500/50 hover:bg-white/10 hover:scale-105 transition-all duration-500 hover:shadow-xl hover:shadow-cyan-500/20">
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-cyan-500 text-white animate-bounce">
-                  Popüler ⭐
-                </Badge>
-
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">STANDART PLAN</h3>
-                  <p className="text-gray-400 mb-4">Aylık</p>
-                  <div className="mb-4">
-                    <span className="text-4xl font-bold text-white">$949</span>
-                    <span className="text-gray-400">⁰</span>
-                    <p className="text-sm text-gray-400">/dan başlayan fiyatlarla</p>
-                  </div>
-                  <p className="text-gray-300">Orta ölçekli ve yoğun mesaj alan işletmeler.</p>
-                </div>
-
-                <div className="space-y-3 mb-8">
-                  {[
-                    "Dahil: 3 Sesli Agent",
-                    "Temel Plan'daki özellikler+",
-                    "Çok dilli destek (TR + EN vb.)",
-                    "Otomatik kampanya bilgilendirme",
-                    "Gelişmiş raporlama ve analiz",
-                    "Sesli mesaj bırakma özelliği",
-                    "Gelişmiş CRM ve API entegrasyonu"
-                  ].map((feature) => (
-                    <div key={feature} className="flex items-center space-x-2 hover:scale-105 transition-all duration-300">
-                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                      <span className="text-gray-300 text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Button className="w-full btn-primary hover:scale-105 transition-all duration-300">
-                  Satış Ekibi ile İletişime Geç →
-                </Button>
-              </Card>
-
-              {/* Custom Plan */}
-              <Card className="glass-card p-8 relative hover:bg-white/10 hover:scale-105 transition-all duration-500">
-                <div className="mb-6">
-                  <h3 className="text-xl font-semibold text-white mb-2">ÖZEL ÇÖZÜM</h3>
-                  <p className="text-gray-400 mb-4">Aylık</p>
-                  <div className="mb-4">
-                    <span className="text-4xl font-bold text-white">Teklif Alın</span>
-                  </div>
-                  <p className="text-gray-300">Özel çözüm arayan ve mesaj trafiği yüksek işletmeler.</p>
-                </div>
-
-                <div className="space-y-3 mb-8">
-                  {[
-                    "Çoklu Agent",
-                    "Standart Plan'daki özellikler+",
-                    "Özel diyalog akışı (kişiselleştirilmiş)",
-                    "Yapay zeka konuşma analizi",
-                    "Kapsamlı raporlama ve veri analizi",
-                    "Premium destek ve danışmanlık",
-                    "Özel entegrasyon ve geliştirme desteği"
-                  ].map((feature) => (
-                    <div key={feature} className="flex items-center space-x-2 hover:scale-105 transition-all duration-300">
-                      <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                      <span className="text-gray-300 text-sm">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Button className="w-full btn-secondary hover:scale-105 transition-all duration-300">
-                  Satış Ekibi ile İletişime Geç →
-                </Button>
-              </Card>
-            </div>
-
-            <div className="text-center mt-12">
-              <p className="text-gray-300">
-                Sorularınız mı var? <a href="#" className="text-cyan-400 hover:underline hover:text-cyan-300 transition-colors duration-300">Bizimle iletişime geçin</a> veya <a href="#" className="text-cyan-400 hover:underline hover:text-cyan-300 transition-colors duration-300">Randevu Oluşturun!</a>
+              <p className="text-xl text-gray-300">
+                Projenizin detaylarını paylaşın, size özel çözümünüzü hazırlayalım
               </p>
             </div>
+
+            {isSubmitted ? (
+              <Card className="bg-green-500/10 border-green-500/30 p-8 text-center">
+                <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-green-400 mb-3">Talebiniz Alındı!</h3>
+                <p className="text-gray-300">
+                  Uzman ekibimiz en kısa sürede sizinle iletişime geçecek.
+                  Genellikle 24 saat içinde dönüş yapıyoruz.
+                </p>
+              </Card>
+            ) : (
+              <Card className="glass-card p-6">
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Ad Soyad *</label>
+                      <input
+                        type="text"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                        placeholder="Adınız ve soyadınız"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">E-posta *</label>
+                      <input
+                        type="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                        placeholder="ornek@email.com"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Telefon</label>
+                      <input
+                        type="tel"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                        placeholder="+90 555 123 45 67"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">İlgilendiğiniz Hizmet *</label>
+                      <select
+                        name="service"
+                        value={formData.service}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                      >
+                        <option value="ai-call-agent">AI Call Agent</option>
+                        <option value="ai-chat-agent">AI Chat Agent</option>
+                        <option value="ai-studio">AI Studio</option>
+                        <option value="custom-ai">Özel AI Çözümü</option>
+                        <option value="consultation">Konsültasyon</option>
+                        <option value="other">Diğer</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2 text-white">Mesajınız *</label>
+                    <textarea
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={4}
+                      className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white resize-none text-sm"
+                      placeholder="Projeniz hakkında detayları, beklentilerinizi ve özel gereksinimlerinizi paylaşın..."
+                    />
+                  </div>
+
+                  <div className="text-center">
+                    <Button
+                      type="submit"
+                      className="btn-primary px-8 py-3 rounded-full"
+                    >
+                      Talep Gönder
+                      <Send className="w-4 h-4 ml-2" />
+                    </Button>
+                    <p className="text-xs text-gray-400 mt-3">
+                      * Zorunlu alanlar. Talebiniz gizli tutulur ve 3. şahıslarla paylaşılmaz.
+                    </p>
+                  </div>
+                </form>
+              </Card>
+            )}
           </div>
         </section>
 

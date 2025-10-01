@@ -1,18 +1,54 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, Check, ArrowRight, Sparkles, Zap, Video, Target, Users, RefreshCw } from "lucide-react";
+import { Menu, Check, ArrowRight, Sparkles, Zap, Video, Target, Users, RefreshCw, Send, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function AIStudio() {
   const [isLoading, setIsLoading] = useState(true);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    company: '',
+    service: 'ai-studio',
+    message: '',
+    budget: ''
+  });
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 100);
     return () => clearTimeout(timer);
   }, []);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+
+    setTimeout(() => {
+      setIsSubmitted(false);
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        company: '',
+        service: 'ai-studio',
+        message: '',
+        budget: ''
+      });
+    }, 3000);
+  };
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
@@ -277,121 +313,118 @@ export default function AIStudio() {
         </div>
       </section>
 
-      {/* Pricing Section */}
+      {/* Contact Form Section */}
       <section id="pricing" className="py-12 px-6 bg-slate-900/50">
-        <div className="container mx-auto">
+        <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-8">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              İşletmeniz İçin Doğru Planı Seçin
+              Özel Talep Formu
             </h2>
-            <p className="text-gray-300 max-w-2xl mx-auto">
-              AI Görsel ve AI Video Planlarımızı inceleyerek size en uygun olanı seçebilirsiniz.
+            <p className="text-gray-300">
+              Projenizin detaylarını paylaşın, size özel çözümünüzü hazırlayalım
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
-            {/* Basic Plan */}
+          {isSubmitted ? (
+            <Card className="bg-green-500/10 border-green-500/30 p-8 text-center">
+              <CheckCircle className="w-12 h-12 text-green-400 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-green-400 mb-3">Talebiniz Alındı!</h3>
+              <p className="text-gray-300">
+                Uzman ekibimiz en kısa sürede sizinle iletişime geçecek.
+                Genellikle 24 saat içinde dönüş yapıyoruz.
+              </p>
+            </Card>
+          ) : (
             <Card className="bg-slate-800/50 border-slate-700 p-6">
-              <CardHeader className="pb-4">
-                <div className="text-sm text-gray-400 uppercase tracking-wider">TEMEL PLAN</div>
-                <CardTitle className="text-xl">10 AI Görsel</CardTitle>
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-3xl font-bold">$349</span>
-                  <span className="text-gray-400 text-sm">/ Görsel</span>
-                </div>
-                <p className="text-gray-300 text-sm">Küçük işletmeler, butik e-ticaret mağazaları.</p>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">10 Adet AI Görsel üretimi</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">Sosyal medya formatları</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">1 revizyon hakkı</span>
-                  </li>
-                </ul>
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-sm">
-                  Satış Ekibi ile İletişime Geç
-                  <ArrowRight className="w-3 h-3 ml-1" />
-                </Button>
-              </CardContent>
-            </Card>
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Ad Soyad *</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                      placeholder="Adınız ve soyadınız"
+                    />
+                  </div>
 
-            {/* Standard Plan */}
-            <Card className="bg-slate-800/50 border-cyan-500 p-6 relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                <Badge className="bg-cyan-500 text-white px-3 py-1 text-xs">Popüler ⭐</Badge>
-              </div>
-              <CardHeader className="pb-4">
-                <div className="text-sm text-gray-400 uppercase tracking-wider">STANDART PLAN</div>
-                <CardTitle className="text-xl">30 AI Görsel</CardTitle>
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-3xl font-bold">$499</span>
-                  <span className="text-gray-400 text-sm">/ Görsel</span>
+                  <div>
+                    <label className="block text-sm font-medium mb-2">E-posta *</label>
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                      placeholder="ornek@email.com"
+                    />
+                  </div>
                 </div>
-                <p className="text-gray-300 text-sm">E-ticaret mağazaları, sosyal medya içerik üreticileri.</p>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">30 Adet AI Görsel üretimi</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">Visual Try-On</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">3 revizyon hakkı</span>
-                  </li>
-                </ul>
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-sm">
-                  Satış Ekibi ile İletişime Geç
-                  <ArrowRight className="w-3 h-3 ml-1" />
-                </Button>
-              </CardContent>
-            </Card>
 
-            {/* Premium Plan */}
-            <Card className="bg-slate-800/50 border-slate-700 p-6">
-              <CardHeader className="pb-4">
-                <div className="text-sm text-gray-400 uppercase tracking-wider">GELİŞMİŞ PLAN</div>
-                <CardTitle className="text-xl">Özel Adet AI Görsel</CardTitle>
-                <div className="flex items-baseline space-x-2">
-                  <span className="text-3xl font-bold">$649</span>
-                  <span className="text-gray-400 text-sm">/ Görsel</span>
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Telefon</label>
+                    <input
+                      type="tel"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                      placeholder="+90 555 123 45 67"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-medium mb-2">İlgilendiğiniz Hizmet *</label>
+                    <select
+                      name="service"
+                      value={formData.service}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
+                    >
+                      <option value="ai-studio">AI Studio</option>
+                      <option value="ai-call-agent">AI Call Agent</option>
+                      <option value="ai-chat-agent">AI Chat Agent</option>
+                      <option value="custom-ai">Özel AI Çözümü</option>
+                      <option value="consultation">Konsültasyon</option>
+                      <option value="other">Diğer</option>
+                    </select>
+                  </div>
                 </div>
-                <p className="text-gray-300 text-sm">Orta ve büyük ölçekli markalar, ajanslar.</p>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-2 mb-6">
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">60 Adet AI Görsel üretimi</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">3D mock-up tasarımları</span>
-                  </li>
-                  <li className="flex items-center space-x-2">
-                    <Check className="w-4 h-4 text-cyan-400" />
-                    <span className="text-sm">4 revizyon hakkı</span>
-                  </li>
-                </ul>
-                <Button className="w-full bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-sm">
-                  Satış Ekibi ile İletişime Geç
-                  <ArrowRight className="w-3 h-3 ml-1" />
-                </Button>
-              </CardContent>
+
+                <div>
+                  <label className="block text-sm font-medium mb-2">Mesajınız *</label>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={4}
+                    className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white resize-none text-sm"
+                    placeholder="Projeniz hakkında detayları, beklentilerinizi ve özel gereksinimlerinizi paylaşın..."
+                  />
+                </div>
+
+                <div className="text-center">
+                  <Button
+                    type="submit"
+                    className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 px-8 py-3 rounded-full"
+                  >
+                    Talep Gönder
+                    <Send className="w-4 h-4 ml-2" />
+                  </Button>
+                  <p className="text-xs text-gray-400 mt-3">
+                    * Zorunlu alanlar. Talebiniz gizli tutulur ve 3. şahıslarla paylaşılmaz.
+                  </p>
+                </div>
+              </form>
             </Card>
-          </div>
+          )}
         </div>
       </section>
 
