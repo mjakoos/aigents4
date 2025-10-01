@@ -394,7 +394,7 @@ export default function Talepler() {
             <div>
               <Phone className="w-8 h-8 text-cyan-400 mx-auto mb-3" />
               <h3 className="font-semibold mb-2">Telefon</h3>
-              <p className="text-gray-300">+90 555 123 45 67</p>
+              <p className="text-gray-300">+90 535 640 90 17</p>
               <p className="text-sm text-gray-400">Pazartesi - Cuma: 09:00 - 18:00</p>
             </div>
 
