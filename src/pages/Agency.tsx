@@ -75,7 +75,7 @@ export default function Agency() {
               Demo Talep Edin
             </Button>
             <Button variant="outline" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 px-6 py-3 rounded-full">
-              Hizmetlerimizi Keşfet
+              Görüşme Planlayın
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
