@@ -82,11 +82,11 @@ export default function AIChatAgent() {
               onClick={() => scrollToSection('demo')}
               className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-white px-6 py-3 rounded-full"
             >
-              Demo Deneyin
+              Demo Talep Edin
               <MessageCircle className="w-5 h-5 ml-2" />
             </Button>
             <Button variant="outline" className="border-cyan-500 text-cyan-400 hover:bg-cyan-500/10 px-6 py-3 rounded-full">
-              Ücretsiz Konsültasyon
+              Görüşme Planlayın
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </div>
