@@ -140,7 +140,7 @@ export default function Talepler() {
               <h3 className="text-lg font-semibold mb-2">Hızlı Görüşme</h3>
               <p className="text-gray-300 text-sm mb-3">Direkt uzmanlarımızla konuşun</p>
               <Button className="bg-gradient-to-r from-cyan-500 to-blue-500 hover:from-cyan-600 hover:to-blue-600 text-sm">
-                Ara: +90 555 123 45 67
+                Ara: +90 535 640 90 17
               </Button>
             </Card>
 
