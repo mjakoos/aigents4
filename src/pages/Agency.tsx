@@ -87,7 +87,7 @@ export default function Agency() {
         <div className="container mx-auto">
           <div className="grid md:grid-cols-4 gap-6 text-center">
             <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
-              <div className="text-3xl font-bold text-cyan-400 mb-2">500+</div>
+              <div className="text-3xl font-bold text-cyan-400 mb-2">100+</div>
               <div className="text-gray-300 text-sm">Başarılı Proje</div>
             </div>
             <div className="bg-slate-800/50 rounded-xl p-6 border border-slate-700">
