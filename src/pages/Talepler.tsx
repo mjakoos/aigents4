@@ -226,7 +226,7 @@ export default function Talepler() {
                       value={formData.phone}
                       onChange={handleInputChange}
                       className="w-full px-3 py-2 bg-slate-700 border border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-400 focus:border-transparent text-white text-sm"
-                      placeholder="+90 535 640 90 17"
+                      placeholder="+90 555 555 55 55"
                     />
                   </div>
 
